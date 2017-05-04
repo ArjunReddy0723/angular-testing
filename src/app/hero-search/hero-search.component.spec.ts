@@ -29,10 +29,17 @@ describe('HeroSearchService', () => {
         HeroSearchComponent
       ],
       providers: [
-        { provide: HeroSearchService, useFactory: () => searchService},
-        { provide: Http, useValue: {} },
         { provide: Router, useValue: {}},
       ],
+    });
+
+    TestBed.overrideComponent(HeroSearchComponent, {
+      // Because the HeroSearchService provider is defined on
+      // the component and not the module, we need to use
+      // TestBed.overrideComponent.
+      set: { providers: [
+          { provide: HeroSearchService, useFactory: () => searchService}
+        ] }
     });
     TestBed.compileComponents();
   }));
